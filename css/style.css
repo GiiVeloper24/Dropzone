@@ -1,0 +1,25 @@
+.dropzone.dz-clickable {
+    cursor: pointer;
+}
+
+.dropzone {
+    border: 2px dashed #0087F7;
+    border-radius: 5px;
+    background: white;
+}
+
+.dropzone {
+    min-height: 150px;
+    background: white;
+    padding: 54px 54px;
+}
+
+.dropzone.dz-clickable .dz-message,
+.dropzone.dz-clickable .dz-message * {
+    cursor: pointer;
+}
+
+caption .dropzone .dz-message {
+    text-align: center;
+    margin: 2em 0;
+}
