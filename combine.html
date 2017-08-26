@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dropzone</title>
+    <link rel="stylesheet" href="css/dropzone.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+    	.dz-progress{
+    		display: none;
+    	}
+    </style>
+</head>
+
+<body>
+    <div id="dropzone">
+        <form action="upload.php" class="dropzone needsclick dz-clickable" id="my-awesome-dropzone">
+            <div class="dz-message needsclick">
+                Drop files here or click to upload.
+                <br>
+                <span class="note needsclick">(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</span>
+            </div>
+  
+			  <!-- Now setup your input fields -->
+			  <input type="hidden" name="csrf" />
+			  <button type="submit">Submit data and files!</button>
+        </form>
+        <div class="dropzone-previews"></div> <!-- this is were the previews should be shown. -->
+    </div>
+    <script src="js/dropzone.js"></script>
+    <script>
+   	(function(){
+
+	    Dropzone.options.myAwesomeDropzone = {
+	        url: "upload.php",
+	        autoProcessQueue: false,
+	        parallelUploads: 100,
+	        paramName: "myFile", // The name that will be used to transfer the file
+	        maxFilesize: 100, // MB
+	        uploadMultiple: true,
+	        init: function() {
+	            var myDropzone = this;
+
+	            // First change the button to actually tell Dropzone to process the queue.
+	            this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+	                // Make sure that the form isn't actually being sent.
+	                e.preventDefault();
+	                e.stopPropagation();
+	                myDropzone.processQueue();
+	            });
+
+	            // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
+	            // of the sending event because uploadMultiple is set to true.
+	            this.on("sendingmultiple", function() {
+	            	console.log("sendingmultiple");
+	                // Gets triggered when the form is actually being sent.
+	                // Hide the success button or the complete form.
+	            });
+	            this.on("successmultiple", function(files, response) {
+	            	console.log("successmultiple");
+	                // Gets triggered when the files have successfully been sent.
+	                // Redirect user or notify of success.
+	            });
+	            this.on("errormultiple", function(files, response) {
+	            	console.log("errormultiple");
+	                // Gets triggered when there was an error sending the files.
+	                // Maybe show form again, and notify user of error
+	            });
+	            this.on("totaluploadprogress", function(progress) {
+	            	console.log(progress);
+	                // Gets triggered when the files have successfully been sent.
+	                // Redirect user or notify of success.
+	            });
+	        }
+	    };
+   	})()
+    </script>
+</body>
+
+</html>
